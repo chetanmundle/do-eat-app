@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import CartContext from "../../context/CartContext";
 import { currencyFormatter } from "../../util/formatting";
@@ -20,7 +20,22 @@ const requestConfig = {
 export default function Checkout() {
   const { items, clearCart } = useContext(CartContext);
   const modalCTX = useContext(ModalContext);
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    street: "",
+    phone: "",
+    postalCode: "",
+    city: "",
+  });
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [id]: value,
+    }));
+  };
   const {
     data,
     isLoading: isSending,
@@ -47,9 +62,52 @@ export default function Checkout() {
     clearData();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     modalCTX.closeCheckout();
+
+    console.log("Items : ", items);
+
+    try {
+      const response = await fetch(
+        "https://infinia-backend.vercel.app/mail/send",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: { email: userData.email },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Email send Successfully");
+        // Show success message using Swal
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your order has been placed successfully Wait 30 min",
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If "OK" button is clicked
+            window.location.reload(); // Refresh the page
+          }
+        });
+      } else {
+        console.log("Unable to send the Email to User");
+      }
+
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+
+      // const data = await response.json();
+      // console.log("Data:", data);
+    } catch (error) {
+      console.log("Unable to send the Email");
+    }
     // Show success message using Swal
     Swal.fire({
       position: "center",
@@ -63,8 +121,6 @@ export default function Checkout() {
         window.location.reload(); // Refresh the page
       }
     });
-    
-    
 
     // const formData = new FormData(e.target);
     // const customerData = Object.fromEntries(formData.entries()); //extract data
@@ -116,17 +172,59 @@ export default function Checkout() {
       <form className="form" onSubmit={handleSubmit}>
         <h2> Checkout </h2>
         <p className="total-amount">
-          Total Amount: &nbsp; {currencyFormatter.format(cartTotal)}
+          Total Amount:
+          <strong>
+            &nbsp; <span>&#8377;</span>
+            {cartTotal}
+          </strong>
         </p>
 
-        <Input label="Full Name" type="text" id="name" />
-        <Input label="Email Address" type="email" id="email" />
-        <Input label="Street" type="text" id="street" />
-        <Input label="Phone" type="number" minLength={10} maxLength={10} />
+        <Input
+          label="Full Name"
+          type="text"
+          id="name"
+          value={userData.name}
+          onChange={handleChange}
+        />
+        <Input
+          label="Email Address"
+          type="email"
+          id="email"
+          value={userData.email}
+          onChange={handleChange}
+        />
+        <Input
+          label="Street"
+          type="text"
+          id="street"
+          value={userData.street}
+          onChange={handleChange}
+        />
+        <Input
+          label="Phone"
+          type="number"
+          minLength={10}
+          maxLength={10}
+          id="phone"
+          value={userData.phone}
+          onChange={handleChange}
+        />
 
         <div className="control-row">
-          <Input label="Postal Code" type="text" id="postal-code" />
-          <Input label="City" type="text" id="city" />
+          <Input
+            label="Postal Code"
+            type="text"
+            id="postalCode"
+            value={userData.postalCode}
+            onChange={handleChange}
+          />
+          <Input
+            label="City"
+            type="text"
+            id="city"
+            value={userData.city}
+            onChange={handleChange}
+          />
         </div>
 
         {error && <Error title="Failed To Submit Order ⛔" message={error} />}

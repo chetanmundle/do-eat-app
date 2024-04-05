@@ -42,7 +42,7 @@ export default function Cart() {
         ))}
       </ul>
 
-      <p className="cart-total"> {currencyFormatter.format(cartTotal)} </p>
+      <p className="cart-total">  <span>&#8377;</span> {cartTotal} </p>
 
       <p className="modal-actions">
         <Button textOnly onClick={handleCloseCart}>
