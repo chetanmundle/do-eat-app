@@ -12,7 +12,6 @@ import vegitablepizza from "../../assets/imgs/vegitablepizza.jpg";
 import paneerpizza from "../../assets/imgs/paneerpizza.jpg";
 import chanapoha from "../../assets/imgs/chanapoha.jpg";
 
-
 //since it's GET-Request we don't need to mention "config" obj
 // to prevent infinite-loop we declare it outside of our Component
 // create this obj once only at the first render and thereafter
@@ -96,11 +95,21 @@ export default function Meals() {
   ]);
 
   return (
-    <ul id="meals">
-      {mealList.map((meal) => (
-        <MealItem key={meal.id} meal={meal} />
-      ))}
-    </ul>
+    <>
+      <ul id="meals">
+        {mealList.map((meal) => (
+          <MealItem key={meal.id} meal={meal} />
+        ))}
+      </ul>
+      <div className="copyright">
+        Designed and Developed by{" "}
+        <a href="https://www.royalswebtech.com/">
+          <span>
+            <i>© Royals WebTech 2024</i>
+          </span>
+        </a>
+      </div>
+    </>
   );
 }
 
