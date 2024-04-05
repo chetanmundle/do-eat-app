@@ -7,6 +7,7 @@ import Button from "../UI/Button";
 import ModalContext from "../../context/ModalContext";
 import useHTTP from "../../hooks/useHTTP";
 import Error from "../Error";
+import Swal from "sweetalert2";
 
 // declare it outside of the Component to avoid infinite-loop
 const requestConfig = {
@@ -48,19 +49,35 @@ export default function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    modalCTX.closeCheckout();
+    // Show success message using Swal
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Your order has been placed successfully Wait 30 min",
+      showConfirmButton: true,
+      confirmButtonText: "OK",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If "OK" button is clicked
+        window.location.reload(); // Refresh the page
+      }
+    });
+    
+    
 
-    const formData = new FormData(e.target);
-    const customerData = Object.fromEntries(formData.entries()); //extract data
+    // const formData = new FormData(e.target);
+    // const customerData = Object.fromEntries(formData.entries()); //extract data
 
-    sendRequest(
-      // Pass the Data to the sendRequest
-      JSON.stringify({
-        order: {
-          items, // items from CartContext
-          customer: customerData,
-        },
-      })
-    );
+    // sendRequest(
+    //   // Pass the Data to the sendRequest
+    //   JSON.stringify({
+    //     order: {
+    //       items, // items from CartContext
+    //       customer: customerData,
+    //     },
+    //   })
+    // );
   };
 
   let actions = (
@@ -105,7 +122,7 @@ export default function Checkout() {
         <Input label="Full Name" type="text" id="name" />
         <Input label="Email Address" type="email" id="email" />
         <Input label="Street" type="text" id="street" />
-        <Input label="Phone" type="number"  minLength={10} maxLength={10}  />
+        <Input label="Phone" type="number" minLength={10} maxLength={10} />
 
         <div className="control-row">
           <Input label="Postal Code" type="text" id="postal-code" />
