@@ -8,6 +8,10 @@ import veggiemanchirin from "../../assets/imgs/veggiemanchirin.jpg";
 import chickenbiryani from "../../assets/imgs/chickenbiryani.jpg";
 import vegbiryani from "../../assets/imgs/vegbiryani.jpg";
 import mattonbiryani from "../../assets/imgs/mattonbiryani.jpg";
+import vegitablepizza from "../../assets/imgs/vegitablepizza.jpg";
+import paneerpizza from "../../assets/imgs/paneerpizza.jpg";
+import chanapoha from "../../assets/imgs/chanapoha.jpg";
+
 
 //since it's GET-Request we don't need to mention "config" obj
 // to prevent infinite-loop we declare it outside of our Component
@@ -40,48 +44,54 @@ export default function Meals() {
       name: "Noodles",
       image: noodles,
       price: 49,
-      description:
-        "Delicious, versatile, quick, savory, comforting, slurp-worthy, satisfying, popular, Asian-inspired, versatile, customizable, noodle-based, flavorful, affordable, easy-to-cook, comforting, filling, stir-fried, boiled, aromatic.",
     },
     {
       id: 2,
       name: "Manchurin Rice",
       image: manchurinrice,
       price: 80,
-      description:
-        "Delicious, versatile, quick, savory, comforting, slurp-worthy, satisfying, popular, Asian-inspired, versatile, customizable, noodle-based, flavorful, affordable, easy-to-cook, comforting, filling, stir-fried, boiled, aromatic.",
     },
     {
       id: 3,
       name: "Veggie Manchurin",
       image: veggiemanchirin,
       price: 60,
-      description:
-        "Delicious, versatile, quick, savory, comforting, slurp-worthy, satisfying, popular, Asian-inspired, versatile, customizable, noodle-based, flavorful, affordable, easy-to-cook, comforting, filling, stir-fried, boiled, aromatic.",
     },
     {
       id: 4,
       name: "Chicken Biryani",
       image: chickenbiryani,
       price: 250,
-      description:
-        "Delicious, versatile, quick, savory, comforting, slurp-worthy, satisfying, popular, Asian-inspired, versatile, customizable, noodle-based, flavorful, affordable, easy-to-cook, comforting, filling, stir-fried, boiled, aromatic.",
     },
     {
       id: 5,
       name: "Veg Biryani",
       image: vegbiryani,
       price: 130,
-      description:
-        "Delicious, versatile, quick, savory, comforting, slurp-worthy, satisfying, popular, Asian-inspired, versatile, customizable, noodle-based, flavorful, affordable, easy-to-cook, comforting, filling, stir-fried, boiled, aromatic.",
     },
     {
       id: 6,
       name: "Matton Biryani",
       image: mattonbiryani,
       price: 280,
-      description:
-        "Delicious, versatile, quick, savory, comforting, slurp-worthy, satisfying, popular, Asian-inspired, versatile, customizable, noodle-based, flavorful, affordable, easy-to-cook, comforting, filling, stir-fried, boiled, aromatic.",
+    },
+    {
+      id: 7,
+      name: "Veg Pizza",
+      image: vegitablepizza,
+      price: 180,
+    },
+    {
+      id: 8,
+      name: "Panner Pizza",
+      image: paneerpizza,
+      price: 180,
+    },
+    {
+      id: 9,
+      name: "Chana Poha",
+      image: chanapoha,
+      price: 180,
     },
   ]);
 

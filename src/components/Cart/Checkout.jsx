@@ -105,6 +105,7 @@ export default function Checkout() {
         <Input label="Full Name" type="text" id="name" />
         <Input label="Email Address" type="email" id="email" />
         <Input label="Street" type="text" id="street" />
+        <Input label="Phone" type="number"  minLength={10} maxLength={10}  />
 
         <div className="control-row">
           <Input label="Postal Code" type="text" id="postal-code" />
